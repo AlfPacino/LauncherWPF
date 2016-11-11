@@ -1,0 +1,14 @@
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\bin\Debug\Launcher3WPF.exe.config
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\bin\Debug\Launcher3WPF.exe
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\bin\Debug\Launcher3WPF.pdb
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF.csprojResolveAssemblyReference.cache
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\MainWindow.g.cs
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\App.g.cs
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF_MarkupCompile.cache
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF_MarkupCompile.lref
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\MainWindow.baml
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF.g.resources
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF.Properties.Resources.resources
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF.csproj.GenerateResource.Cache
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF.exe
+F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\Launcher3WPF.pdb
