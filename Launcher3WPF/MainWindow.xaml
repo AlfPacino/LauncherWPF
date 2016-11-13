@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Launcher3WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="400">
-
-    <Grid ShowGridLines="True">
+    
+    <Grid ShowGridLines="True" x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -20,10 +20,12 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
+    
         <Button x:Name="buttonAdd" Content="Add" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="ButtonAdd_Click"/>
 
-        <Button x:Name="buttonExit" Content="Exit" Grid.Column="1" HorizontalAlignment="Left" Margin="27.8,85,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Click="ButtonExit_Click"/>
-        
+        <Button x:Name="buttonExit" Content="Exit" Grid.Column="1" HorizontalAlignment="Left" Margin="34.8,66,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Click="ButtonExit_Click"/>
+        <Button x:Name="button" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="34.6,41.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+     
     </Grid>
+    
 </Window>
