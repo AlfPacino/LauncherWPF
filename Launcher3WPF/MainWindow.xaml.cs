@@ -26,7 +26,6 @@ namespace Launcher3WPF
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded); // add loaded event to mainForm
-            this.Closed += new EventHandler(MainWindow_Closed); // add closed event to mainForm
         }
 
         private void Serealization()
@@ -48,7 +47,55 @@ namespace Launcher3WPF
             }
         }
 
-        List<AppToLaunch> appManager;
+        List<AppToLaunch> appManager = null;
+        Button[] buttons = null;
+
+        //method displays appManager in Window
+        private void ShowAllApps()
+        {
+            //Clear grid
+            mainGrid.ColumnDefinitions.Clear();
+            mainGrid.RowDefinitions.Clear();
+            mainGrid.Children.Clear();
+            buttons = null;
+
+            // 3 columns
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            // add rows acording to count of apps
+            for (int i = 0; i <= appManager.Count / 3; i++)
+            {
+                mainGrid.RowDefinitions.Add(new RowDefinition());
+            }
+
+            buttons = new Button[appManager.Count];
+
+            int currentCol = 0;
+            int currentRow = 0;
+            for (int i = 0; i < appManager.Count; i++)
+            {
+                buttons[i] = new Button();
+                buttons[i].Name = "button" + i.ToString();
+                System.Windows.Controls.Image buf = new System.Windows.Controls.Image();
+                buf.Source = appManager[i].GetImage();
+                buttons[i].Content = buf;
+                buttons[i].MouseRightButtonUp += ButtonDelete_Click;
+
+                if (currentCol == 3)
+                {
+                    currentCol = 0;
+                    currentRow++;
+                }
+
+                mainGrid.Children.Add(buttons[i]);
+                Grid.SetRow(buttons[i], currentRow);
+                Grid.SetColumn(buttons[i], currentCol);
+
+                currentCol++;
+            }
+        }
 
         private void MainWindow_Loaded(object sender, EventArgs e)
         {
@@ -69,10 +116,8 @@ namespace Launcher3WPF
                 System.Windows.MessageBox.Show("Error while decoding Config.xml: " + Environment.NewLine + exep.Message);
             }
             System.Windows.MessageBox.Show("Count " + appManager.Count);
-            System.Windows.Controls.Image buf = new System.Windows.Controls.Image();
-            buf.Source = appManager[0].GetImage();
-            buttonAdd.Content = buf;
-            mainGrid.RowDefinitions.Add(new RowDefinition());
+
+            ShowAllApps();
         }
 
         private void ButtonAdd_Click(object sender, EventArgs e)
@@ -80,8 +125,8 @@ namespace Launcher3WPF
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if(openFileDialog.FileName.EndsWith(".exe"))
-                {                   
+                if (openFileDialog.FileName.EndsWith(".exe"))
+                {
                     // get bmp from .exe
                     System.Drawing.Icon ico = System.Drawing.Icon.ExtractAssociatedIcon(openFileDialog.FileName);
                     BitmapSource bmp = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
@@ -97,19 +142,28 @@ namespace Launcher3WPF
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("Application has already been added");
+                        MessageBox.Show("Application has already been added");
                     }
-                    
-                    Serealization();                  
+
+                    ShowAllApps();
+
+                    Serealization();
+                }
+                else
+                {
+                    MessageBox.Show("Selected file is not .exe");
                 }
             }
         }
 
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
+            Button b = (Button)sender;
             // delete app 
-            int i = 1;
+            int i = Convert.ToInt32(b.Name.Remove(0, 6)); // first 6 symbols of name are "button" then goes number
             appManager.RemoveAt(i);
+            buttons = null;
+            //ShowAllApps();
             // serealisation to xml
             Serealization();
         }
@@ -117,19 +171,6 @@ namespace Launcher3WPF
         private void ButtonExit_Click(object sender, EventArgs e)
         { 
             Environment.Exit(0);
-        }
-
-        private void MainWindow_Closed(object sender, EventArgs e)
-        {
-            //
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            Button btn = new Button();
-            mainGrid.Children.Add(btn);
-            Button btn2 = new Button();
-            mainGrid.Children.Add(btn2);
         }
     }
 }
