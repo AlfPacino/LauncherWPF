@@ -1,0 +1,18 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Launcher3WPF"
+        mc:Ignorable="d"
+        Title="App Launcher" Height="400" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="MV Boli">
+        
+    <Grid ShowGridLines="True" >
+        
+        <Grid ShowGridLines="True"  x:Name="mainGrid">
+            
+            
+            
+        </Grid>
+    </Grid>
+</Window>

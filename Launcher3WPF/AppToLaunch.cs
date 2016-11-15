@@ -52,6 +52,8 @@ namespace Launcher3WPF
                 }
             }
         }
+
+        // converts byte array to BitmapImage
         public BitmapImage GetImage()
         {
             var image = new BitmapImage();

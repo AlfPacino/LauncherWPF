@@ -5,14 +5,99 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Launcher3WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="400">
+        Title="App Launcher" Height="400" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="MV Boli">
+    <Window.Resources>
+        <!-- Style for all button with apps -->
+        <Style x:Key="MainButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+            <Setter Property="Height" Value="100"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="Border" CornerRadius="30">
+                                <Border.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="BlueViolet" Offset="1"></GradientStop>
+                                        <GradientStop Color="SkyBlue" Offset="0"></GradientStop>
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <!-- Margin and centering for content(image)-->
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
+                        </Grid>
+                        <!-- Mouse over trigger switches the gradient -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="Border">
+                                    <Setter.Value>
+                                        <RadialGradientBrush>
+                                            <GradientStop Color="BlueViolet" Offset="0"></GradientStop>
+                                            <GradientStop Color="SkyBlue" Offset="1"></GradientStop>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Style for exit button -->
+        <Style x:Key="ExitButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse x:Name="ellipce" Fill="Red" />
+                            <TextBlock FontSize="30" FontFamily="Arial" Foreground="White">
+                                <TextBlock.VerticalAlignment>Center</TextBlock.VerticalAlignment>
+                                <TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
+                                X
+                            </TextBlock>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Fill" TargetName="ellipce">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FF98B2DC" Offset="0"/>
+                                            <GradientStop Color="#FF245CB5" Offset="0.528"/>
+                                            <GradientStop Color="#FFCAD7ED" Offset="1"/>
+                                            <GradientStop Color="#FF7095CF" Offset="0.442"/>
+                                            <GradientStop Color="#FF4272BF" Offset="0.487"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
 
-    <Grid ShowGridLines="True" >
-        <Grid ShowGridLines="True"  x:Name="mainGrid" Margin="0,0,-0.4,34.4">
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Fill" TargetName="ellipce">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FF88A6D7" Offset="0"/>
+                                            <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                                            <GradientStop Color="#FF1853B1" Offset="0.5"/>
+                                            <GradientStop Color="#FF779AD1" Offset="1"/>
+                                            <GradientStop Color="#FF4977C2" Offset="0.498"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid ShowGridLines="True"  x:Name="mainGrid">
+            <Button Style="{StaticResource MainButtonStyle}" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Exit" Margin="0,180,192,120"></Button>
         </Grid>
-        
-        <Button x:Name="buttonAdd" Content="Add" HorizontalAlignment="Left" Margin="75,543,0,-27" VerticalAlignment="Top" Width="75" Click="ButtonAdd_Click"/>
-
-        <Button x:Name="buttonExit" Content="Exit" HorizontalAlignment="Left" Margin="149,541,0,0" VerticalAlignment="Top" Width="75" Click="ButtonExit_Click"/>
+        <!-- EXIT BUTTON WITH STYLE -->
+        <Button x:Name="exitButton" Style="{StaticResource ExitButtonStyle}" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Exit" />
     </Grid>
 </Window>

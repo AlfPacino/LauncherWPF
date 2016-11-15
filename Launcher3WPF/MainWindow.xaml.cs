@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.IO;
+using System.Diagnostics;
 
 namespace Launcher3WPF
 {
@@ -50,7 +51,7 @@ namespace Launcher3WPF
         List<AppToLaunch> appManager = null;
         Button[] buttons = null;
 
-        //method displays appManager in Window
+        //method displays appManager in Window + displays 1 additional button "Add New App"
         private void ShowAllApps()
         {
             //Clear grid
@@ -69,20 +70,31 @@ namespace Launcher3WPF
             {
                 mainGrid.RowDefinitions.Add(new RowDefinition());
             }
-
-            buttons = new Button[appManager.Count];
+            
+            buttons = new Button[appManager.Count+1]; // +1 cause of button "Add new App"
 
             int currentCol = 0;
             int currentRow = 0;
+
+            // this loop adds new button and fits the grid for it
             for (int i = 0; i < appManager.Count; i++)
             {
                 buttons[i] = new Button();
                 buttons[i].Name = "button" + i.ToString();
+
                 System.Windows.Controls.Image buf = new System.Windows.Controls.Image();
                 buf.Source = appManager[i].GetImage();
+                //EllipseGeometry clipGeometry = new EllipseGeometry(new Point(buf.Source.Height/2, buf.Source.Width / 2), 20, 20);
+                //buf.Clip = clipGeometry;
                 buttons[i].Content = buf;
-                buttons[i].MouseRightButtonUp += ButtonDelete_Click;
+                
 
+                buttons[i].MouseRightButtonUp += ButtonDelete_Click; // add event that deletes button 
+                buttons[i].Click += LaunchApp; // add event that launches app
+                buttons[i].ToolTip = appManager[i].exePath; // add hint
+                
+                buttons[i].Style = this.FindResource("MainButtonStyle") as Style; // add style to button
+                
                 if (currentCol == 3)
                 {
                     currentCol = 0;
@@ -95,6 +107,21 @@ namespace Launcher3WPF
 
                 currentCol++;
             }
+
+            // this code adds 1 additional button wich alow to add new apps
+            Button buttonAdd = new Button();
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Content = "Add New App";
+            buttonAdd.Click += ButtonAdd_Click;
+            buttonAdd.Style = this.FindResource("MainButtonStyle") as Style;
+            if (currentCol == 3)
+            {
+                currentCol = 0;
+                currentRow++;
+            }
+            mainGrid.Children.Add(buttonAdd);
+            Grid.SetColumn(buttonAdd, currentCol);
+            Grid.SetRow(buttonAdd, currentRow);
         }
 
         private void MainWindow_Loaded(object sender, EventArgs e)
@@ -115,7 +142,15 @@ namespace Launcher3WPF
                 appManager = new List<AppToLaunch>();
                 System.Windows.MessageBox.Show("Error while decoding Config.xml: " + Environment.NewLine + exep.Message);
             }
-            System.Windows.MessageBox.Show("Count " + appManager.Count);
+
+            // IF exe file not found - delete AppToLaunch linked with him
+            foreach (AppToLaunch app in appManager)
+            {
+                if (!File.Exists(app.exePath))
+                {
+                    appManager.Remove(app);
+                }
+            }
 
             ShowAllApps();
         }
@@ -163,14 +198,27 @@ namespace Launcher3WPF
             int i = Convert.ToInt32(b.Name.Remove(0, 6)); // first 6 symbols of name are "button" then goes number
             appManager.RemoveAt(i);
             buttons = null;
-            //ShowAllApps();
+            ShowAllApps();
             // serealisation to xml
             Serealization();
         }
 
-        private void ButtonExit_Click(object sender, EventArgs e)
-        { 
+        private void LaunchApp(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            int i = Convert.ToInt32(b.Name.Remove(0, 6)); // first 6 symbols of name are "button" then goes number
+            try
+            {
+                Process.Start(appManager[i].exePath); // launch chosen app
+            }
+            catch{ return; }
             Environment.Exit(0);
         }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
     }
 }
