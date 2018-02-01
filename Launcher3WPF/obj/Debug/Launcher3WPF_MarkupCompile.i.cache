@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\obj\Debug\
+D:\dev\LauncherWPF\Launcher3WPF\obj\Debug\
 Launcher3WPF
 none
 false
 DEBUG;TRACE
-F:\YandexDisk\MyPrograms\Launcher3WPF\Launcher3WPF\App.xaml
+D:\dev\LauncherWPF\Launcher3WPF\App.xaml
 11151548125
 
-10-263894184
-15767094614
+9-490896293
+1113013683
 MainWindow.xaml;
 
-True
+False
 
